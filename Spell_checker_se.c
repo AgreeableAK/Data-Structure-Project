@@ -129,7 +129,7 @@ void suggest(const char* word) {
     }
 
     // Traverse the trie to find similar words with edit distance <= 2
-    printf("Suggestions for \"%s\":\n", word);
+    printf("\033[1;33mSuggestions for\033[0m \"\033[1;31m%s\033[0m\":\n", word);
     char suggestion[LENGTH + 1];
 
     // Try deleting one character from the original word
@@ -137,7 +137,7 @@ void suggest(const char* word) {
         strcpy(suggestion, word);
         memmove(&suggestion[i], &suggestion[i + 1], strlen(suggestion) - i);
         if (check(suggestion)) {
-            printf("- %s\n", suggestion);
+            printf("- \033[1;32m %s\033[0m\n", suggestion);
         }
     }
 
@@ -148,7 +148,7 @@ void suggest(const char* word) {
             memmove(&suggestion[i + 1], &suggestion[i], strlen(suggestion) - i + 1);
             suggestion[i] = c;
             if (check(suggestion)) {
-                printf("- %s\n", suggestion);
+                printf("-\033[1;32m %s\033[0m\n", suggestion);
             }
         }
     }
@@ -159,7 +159,7 @@ void suggest(const char* word) {
             strcpy(suggestion, word);
             suggestion[i] = c;
             if (check(suggestion)) {
-                printf("- %s\n", suggestion);
+                printf("- \033[1;32m %s\033[0m\n", suggestion);
             }
         }
     }
@@ -183,7 +183,7 @@ int main() {
     fgets(sentence, sizeof(sentence), stdin);
 
     printf("\n==================\n");
-    printf("\tMISSPELLED WORDS:\n");
+    printf("\033[1;31mMISSPELLED WORDS:\033[0m\n");
     printf("==================\n");
     
     int index = 0, misspellings = 0, words = 0;
@@ -216,7 +216,7 @@ int main() {
 
             // Check if the word is misspelled and suggest corrections
             if (!check(word)) {
-                printf("%s\n", word);
+                printf("\033[1;31m%s\033[0m\n", word);
                 
                 suggest(word);
                 misspellings++;
